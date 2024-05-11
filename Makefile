@@ -9,9 +9,11 @@ SRCS = *.c
 all: $(NAME)
 
 $(NAME):: clean
-	${CC} ${CFLAGS} ${SRCS} -o ${NAME} -D BUFFER_SIZE=1000 && ./${NAME} | cat -e
+	${CC} ${CFLAGS} ${SRCS} -o ${NAME} -D BUFFER_SIZE=5 && ./${NAME} | cat -e
 
 clean:
 	rm *.out
 
+debug:
+	gdb ${NAME}
 .PHONY: all

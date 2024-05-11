@@ -1,0 +1,7 @@
+*.o*
+*.swp*
+main.c
+libftTester
+.idea
+*.a
+.vscode

@@ -1,9 +1,9 @@
 *.o*
 *.swp*
-main.c
+#main.c
 libftTester
 .idea
 *.a
 .vscode
 *.txt
-*bkp
+#*bkp

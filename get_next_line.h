@@ -26,7 +26,7 @@ char	*get_next_line(int fd);
 char	*get_next_line2(int fd);
 char	*ft_strdup(char *s1);
 char	*ft_strjoin(char *s1, char *s2, int max);
-int		ft_strchr(char *str, int c);
+int		ft_strchr(char *str, int len, int c);
 size_t	ft_strlen(char const *str);
 
 #endif

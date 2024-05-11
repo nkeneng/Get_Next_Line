@@ -12,12 +12,12 @@
 
 #include "get_next_line.h"
 
-int	ft_strchr(char *str, int c)
+int	ft_strchr(char *str, int len, int c)
 {
 	int	incr;
 
 	incr = 0;
-	while (str[incr])
+	while (incr < len)
 	{
 		if (str[incr] == (char)c)
 			return (incr);
@@ -64,7 +64,7 @@ char	*ft_strjoin(char *s1, char *s2, int max)
 	int		i;
 	int		j;
 
-	str = malloc(sizeof(char) * (ft_strlen(s1) + max + 1));
+	str = malloc(sizeof(char) * (ft_strlen(s1) + max + 2));
 	if (!str)
 		return (0);
 	i = 0;

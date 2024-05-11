@@ -16,10 +16,10 @@ static int	parse_static(char **str, char **line)
 {
 	int	rlp;
 
-	rlp = ft_strchr(*str, '\n');
+	rlp = ft_strchr(*str, ft_strlen(*str), '\n');
 	if (rlp != -1)
 	{
-		*line = ft_strjoin(*line, *str, rlp+1);
+		*line = ft_strjoin(*line, *str, rlp);
 		*str = *str + rlp + 1;
 		return (1);
 	}
@@ -36,9 +36,9 @@ static char	*free_return(char *line, char *buf, char *sv, int rn)
 		free(buf);
 	if (rn)
 	{
-		if (*line)
+		if (line)
 			free(line);
-		if (*sv)
+		if (sv)
 		{
 			free(sv);
 		}
@@ -59,13 +59,13 @@ static char	*logic(char **line, char **sv, char **buf, int fd)
 		rr = read(fd, *buf, BUFFER_SIZE);
 		if (rr <= 0)
 			return (free_return(*line, *buf, *sv, 1));
-		rlp = ft_strchr(*buf, '\n');
+		rlp = ft_strchr(*buf, rr, '\n');
 		if (rlp != -1)
 		{
 			*sv = ft_strdup(*buf + rlp + 1);
 			if (!*sv)
 				return (free_return(*line, *buf, *sv, 1));
-			return (free_return(ft_strjoin(*line, *buf, rlp + 1), *buf, *sv, 0));
+			return (free_return(ft_strjoin(*line, *buf, rlp), *buf, *sv, 0));
 		}
 		else
 		{

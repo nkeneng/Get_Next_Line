@@ -12,7 +12,7 @@ $(NAME):: clean
 	${CC} ${CFLAGS} ${SRCS} -o ${NAME} -D BUFFER_SIZE=5 && ./${NAME} | cat -e
 
 clean:
-	rm *.out
+	-rm *.out
 
 debug:
 	gdb ${NAME}

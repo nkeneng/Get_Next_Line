@@ -5,3 +5,5 @@ libftTester
 .idea
 *.a
 .vscode
+*.txt
+*bkp

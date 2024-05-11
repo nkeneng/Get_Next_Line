@@ -26,12 +26,18 @@ static int	parse_static(char **str, char **line)
 	return (0);
 }
 
+/*
+ *
+ * rn  = return null ?
+ */
 static char	*free_return(char *line, char *buf, char *sv, int rn)
 {
-	free(buf);
+	if (*buf)
+		free(buf);
 	if (rn)
 	{
-		free(line);
+		if (*line)
+			free(line);
 		if (*sv)
 			free(sv);
 		return (NULL);
@@ -55,10 +61,16 @@ static char	*logic(char **line, char **sv, char **buf, int fd)
 		if (rlp != -1)
 		{
 			*sv = ft_strdup(*buf + rlp + 1);
+			if (!*sv)
+				return (free_return(*line, *buf, *sv, 1));
 			return (free_return(ft_strjoin(*line, *buf, rlp), *buf, *sv, 0));
 		}
 		else
+		{
 			*line = ft_strjoin(*line, *buf, ft_strlen(*buf));
+			if (!*line)
+				return (free_return(*line, *buf, *sv, 1));
+		}
 	}
 }
 
@@ -72,11 +84,9 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*sv;
 
-	if (fd < 0)
-		return (NULL);
 	buf = (char *)malloc(BUFFER_SIZE);
-	line = ft_strdup("");
-	if (!buf && !line)
-		return (NULL);
+	line = "";
+	if (!buf || !fd || fd < 0)
+		return (free_return(line, buf, sv, 1));
 	return (logic(&line, &sv, &buf, fd));
 }

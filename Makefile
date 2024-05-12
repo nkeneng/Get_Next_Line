@@ -14,6 +14,13 @@ $(NAME):: clean
 clean:
 	-rm *.out
 
+fclean:
+	-rm *.out
+
 debug:
 	gdb ${NAME}
-.PHONY: all
+
+valgrind:
+	valgrind ./${NAME} --leak-check=full
+
+.PHONY: all clean debug valgrind

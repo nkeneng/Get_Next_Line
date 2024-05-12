@@ -29,6 +29,9 @@ int	main(void)
 	line = get_next_line(fd);
 	printf("%s", line);
 	close(fd);
+
+	printf("edge cases -----------------------\n");
+	printf("fd = 100 : %s\n", get_next_line(100));
 	return (0);
 }
 

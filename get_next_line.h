@@ -28,5 +28,6 @@ char	*ft_strdup(char *s1);
 char	*ft_strjoin(char *s1, char *s2, int max);
 int		ft_strchr(char *str, int len, int c);
 size_t	ft_strlen(char const *str);
+void	ft_bzero(void *s, size_t n);
 
 #endif

@@ -11,12 +11,15 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int	main(void)
 {
 	int		fd;
 	char	*line;
 
+	line = "";
+	printf("%s \n", line);
 	printf("buffer size  is %d\n", BUFFER_SIZE);
 	fd = open("text.txt", O_RDONLY);
 	line = get_next_line(fd);

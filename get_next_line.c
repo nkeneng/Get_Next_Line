@@ -40,6 +40,7 @@ static char	*free_return(char *line, char *buf, char *sv, int rn)
 			free(line);
 		if (sv)
 		{
+			sv[0] = 0;
 			free(sv);
 		}
 		return (NULL);
@@ -58,7 +59,7 @@ static char	*logic(char **line, char **sv, char **buf, int fd)
 			return (free_return(*line, *buf, *sv, 0));
 		rr = read(fd, *buf, BUFFER_SIZE);
 		if (rr <= 0)
-			return (free_return(*line, *buf, *sv, 1));
+			return (free_return(*line, *buf, *sv, 0));
 		rlp = ft_strchr(*buf, rr, '\n');
 		if (rlp != -1)
 		{
@@ -89,9 +90,10 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*sv;
 
-	buf = (char *)malloc(BUFFER_SIZE);
+	buf = (char *)malloc(BUFFER_SIZE + 1);
 	line = "";
-	if (!buf || !fd || fd < 0)
+	if (!buf || fd < 0 || !line)
 		return (free_return(line, buf, sv, 1));
+	ft_bzero(buf, BUFFER_SIZE + 1);
 	return (logic(&line, &sv, &buf, fd));
 }

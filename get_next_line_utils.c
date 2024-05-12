@@ -17,13 +17,13 @@ int	ft_strchr(char *str, int len, int c)
 	int	incr;
 
 	incr = 0;
-	while (incr < len)
+	while (str[incr] && incr < len)
 	{
 		if (str[incr] == (char)c)
 			return (incr);
 		incr++;
 	}
-	if (str[incr] == (char)c)
+	if (str[incr] && str[incr] == (char)c)
 		return (incr);
 	return (-1);
 }
@@ -78,4 +78,17 @@ char	*ft_strjoin(char *s1, char *s2, int max)
 		str[i++] = s2[j++];
 	str[i] = '\0';
 	return (str);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	incr;
+
+	incr = 0;
+	while (incr < n)
+	{
+		*(char *)s = '\0';
+		s++;
+		incr++;
+	}
 }

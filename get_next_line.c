@@ -46,11 +46,14 @@ static char	*free_return(char *line, char *buf, char *sv, int rn)
 		return (NULL);
 	}
 	else if (rn == 2 && sv)
+	{
 		free(sv);
+		sv = NULL;
+	}
 	return (line);
 }
 
-static char	*logic(char **line, char **sv, char **buf, int fd)
+static int	logic(char **line, char **sv, char **buf, int fd)
 {
 	int	rr;
 	int	rlp;
@@ -58,19 +61,20 @@ static char	*logic(char **line, char **sv, char **buf, int fd)
 	while (1)
 	{
 		if (*sv && parse_static(sv, line))
-			return (free_return(*line, *buf, *sv, 0));
+			return (0);
 		rr = read(fd, *buf, BUFFER_SIZE);
 		if (rr < 0 || (rr == 0 && line == NULL))
-			return (free_return(*line, *buf, *sv, 1));
+			return (1);
 		if (rr == 0)
-			return (free_return(*line, *buf, *sv, 2));
+			return (2);
 		rlp = ft_strchr(*buf, rr, '\n');
 		if (rlp != -1)
 		{
 			*sv = ft_strdup(*buf + rlp + 1);
 			if (!*sv)
-				return (free_return(*line, *buf, *sv, 1));
-			return (free_return(ft_strjoin(*line, *buf, rlp), *buf, *sv, 0));
+				return (1);
+			*line = ft_strjoin(*line, *buf, rlp);
+			return (0);
 		}
 		else
 		{
@@ -93,11 +97,13 @@ char	*get_next_line(int fd)
 	char		*buf;
 	char		*line;
 	static char	*sv;
+	int			res;
 
 	buf = (char *)malloc(BUFFER_SIZE + 1);
 	line = NULL;
 	if (!buf || fd < 0)
 		return (free_return(line, buf, sv, 1));
 	ft_bzero(buf, BUFFER_SIZE + 1);
-	return (logic(&line, &sv, &buf, fd));
+	res = logic(&line, &sv, &buf, fd);
+	return free_return(line, buf, sv, res))
 }

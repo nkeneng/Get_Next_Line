@@ -17,7 +17,7 @@ int	ft_strchr(char *str, int len, int c)
 	int	incr;
 
 	incr = 0;
-	while (str[incr] && incr < len)
+	while (str && str[incr] && incr < len)
 	{
 		if (str[incr] == (char)c)
 			return (incr);
@@ -33,7 +33,7 @@ size_t	ft_strlen(char const *str)
 	size_t	incr;
 
 	incr = 0;
-	while (str[incr])
+	while (str && str[incr])
 		incr++;
 	return (incr);
 }
@@ -74,7 +74,7 @@ char	*ft_strjoin(char *s1, char *s2, int max)
 		i++;
 	}
 	j = 0;
-	while (s2[j] && j <= max)
+	while (s2 && s2[j] && j <= max)
 		str[i++] = s2[j++];
 	str[i] = '\0';
 	return (str);

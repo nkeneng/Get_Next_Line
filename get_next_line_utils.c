@@ -68,7 +68,7 @@ char	*ft_strjoin(char *s1, char *s2, int max)
 	if (!str)
 		return (0);
 	i = 0;
-	while (s1[i])
+	while (s1 && s1[i])
 	{
 		str[i] = s1[i];
 		i++;

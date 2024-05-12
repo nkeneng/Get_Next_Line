@@ -11,27 +11,14 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <fcntl.h>
 #include <stdio.h>
 
 int	main(void)
 {
-	int		fd;
-	char	*line;
-
-	line = "";
-	printf("%s \n", line);
 	printf("buffer size  is %d\n", BUFFER_SIZE);
-	fd = open("text.txt", O_RDONLY);
-	line = get_next_line(fd);
-	printf("%s", line);
-	line = get_next_line(fd);
-	printf("%s", line);
-	line = get_next_line(fd);
-	printf("%s", line);
-	close(fd);
-
-	printf("edge cases -----------------------\n");
-	printf("fd = 100 : %s\n", get_next_line(100));
+	int fd3 = open("multiple_nl.txt", O_RDONLY);
+	printf("fd = multiple_line :\n%s", get_next_line(fd3));
 	return (0);
 }
 

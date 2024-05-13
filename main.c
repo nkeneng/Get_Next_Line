@@ -17,12 +17,7 @@
 int	main(void)
 {
 	printf("buffer size  is %d\n", BUFFER_SIZE);
-	int fd3 = open("multiple_nl.txt", O_RDONLY);
-	printf("%s", get_next_line(fd3));
-	printf("%s", get_next_line(fd3));
-	printf("%s", get_next_line(fd3));
-	printf("%s", get_next_line(fd3));
-	printf("%s", get_next_line(fd3));
+	int fd3 = open("41_with_nl", O_RDONLY);
 	printf("%s", get_next_line(fd3));
 	printf("%s", get_next_line(fd3));
 	printf("%s", get_next_line(fd3));

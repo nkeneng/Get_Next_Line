@@ -12,15 +12,15 @@
 
 #include "get_next_line.h"
 
-static int	parse_static(char **str, char **line)
+static int	parse_static(char **sv, char **line)
 {
 	int	rlp;
 
-	rlp = ft_strchr(*str, ft_strlen(*str), '\n');
+	rlp = ft_strchr(*sv, ft_strlen(*sv), '\n');
 	if (rlp != -1)
 	{
-		*line = ft_strjoin(*line, *str, rlp);
-		*str = *str + rlp + 1;
+		*line = ft_strjoin(*line, *sv, rlp);
+		ft_memmove(*sv, *sv + rlp + 1, ft_strlen(*sv - rlp));
 		return (1);
 	}
 	return (0);
@@ -81,6 +81,7 @@ static int	logic(char **line, char **sv, char **buf, int fd)
 			if (*sv)
 			{
 				*line = ft_strjoin(*line, *sv, ft_strlen(*sv));
+				free(*sv);
 				*sv = NULL;
 			}
 			*line = ft_strjoin(*line, *buf, ft_strlen(*buf));
@@ -105,5 +106,5 @@ char	*get_next_line(int fd)
 		return (free_return(line, buf, sv, 1));
 	ft_bzero(buf, BUFFER_SIZE + 1);
 	res = logic(&line, &sv, &buf, fd);
-	return free_return(line, buf, sv, res))
+	return (free_return(line, buf, sv, res));
 }

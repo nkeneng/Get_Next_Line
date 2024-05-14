@@ -20,7 +20,7 @@ static int	parse_static(char **sv, char **line)
 	if (rlp != -1)
 	{
 		*line = ft_strjoin(*line, *sv, rlp);
-		ft_memmove(*sv, *sv + rlp + 1, ft_strlen(*sv - rlp));
+		ft_memmove(*sv, *sv + rlp + 1, ft_strlen(*sv) - rlp);
 		return (1);
 	}
 	return (0);
@@ -62,8 +62,14 @@ static int	logic(char **line, char **sv, char **buf, int fd)
 	{
 		if (*sv && parse_static(sv, line))
 			return (0);
+		if (*sv)
+		{
+			*line = ft_strjoin(*line, *sv, ft_strlen(*sv));
+			free(*sv);
+			*sv = NULL;
+		}
 		rr = read(fd, *buf, BUFFER_SIZE);
-		if (rr < 0 || (rr == 0 && line == NULL))
+		if (rr < 0 || (rr == 0 && *line == NULL))
 			return (1);
 		if (rr == 0)
 			return (2);
@@ -78,13 +84,8 @@ static int	logic(char **line, char **sv, char **buf, int fd)
 		}
 		else
 		{
-			if (*sv)
-			{
-				*line = ft_strjoin(*line, *sv, ft_strlen(*sv));
-				free(*sv);
-				*sv = NULL;
-			}
 			*line = ft_strjoin(*line, *buf, ft_strlen(*buf));
+			ft_bzero(*buf, BUFFER_SIZE + 1);
 		}
 	}
 }

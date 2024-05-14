@@ -33,8 +33,11 @@ size_t	ft_strlen(char const *str)
 	size_t	incr;
 
 	incr = 0;
-	while (str && str[incr])
-		incr++;
+	if (str)
+	{
+		while (str[incr])
+			incr++;
+	}
 	return (incr);
 }
 
@@ -64,6 +67,8 @@ char	*ft_strjoin(char *s1, char *s2, int max)
 	int		i;
 	int		j;
 
+	if (s2 && *s2 == '\0')
+		return (NULL);
 	str = malloc(sizeof(char) * (ft_strlen(s1) + max + 2));
 	if (!str)
 		return (0);

@@ -16,11 +16,15 @@
 
 int	main(void)
 {
+	char *line;
 	printf("buffer size  is %d\n", BUFFER_SIZE);
-	int fd3 = open("41_with_nl", O_RDONLY);
-	printf("%s", get_next_line(fd3));
-	printf("%s", get_next_line(fd3));
-	printf("%s", get_next_line(fd3));
+	int fd3 = open("files/multiple_line_no_nl", O_RDONLY);
+	line =  get_next_line(fd3);
+	printf("%s", line);
+	line =  get_next_line(fd3);
+	printf("%s", line);
+	close(fd3);
+	free(line);
 	return (0);
 }
 

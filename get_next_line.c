@@ -11,16 +11,23 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdlib.h>
 
 static int	parse_static(char **sv, char **line)
 {
 	int	rlp;
+	int	incr;
 
 	rlp = ft_strchr(*sv, ft_strlen(*sv), '\n');
+	incr = 0;
 	if (rlp != -1)
 	{
 		*line = ft_strjoin(*line, *sv, rlp);
-		ft_memmove(*sv, *sv + rlp + 1, ft_strlen(*sv) - rlp);
+		while (incr < (int)ft_strlen(*sv) - rlp)
+		{
+			(*sv)[incr] = (*sv)[incr + rlp + 1];
+			incr++;
+		}
 		return (1);
 	}
 	return (0);
@@ -53,6 +60,29 @@ static char	*free_return(char *line, char *buf, char *sv, int rn)
 	return (line);
 }
 
+int	handle_line_break(char **buf, char **line, char **sv, int rr)
+{
+	int	rlp;
+
+	rlp = ft_strchr(*buf, rr, '\n');
+	if (rlp != -1)
+	{
+		*sv = ft_strdup(*buf + rlp + 1);
+		if (!*sv)
+			return (1);
+		*line = ft_strjoin(*line, *buf, rlp);
+		return (0);
+	}
+	else
+	{
+		*line = ft_strjoin(*line, *buf, ft_strlen(*buf));
+		if (!*line)
+			return (1);
+		ft_bzero(*buf, BUFFER_SIZE + 1);
+		return (-1);
+	}
+}
+
 static int	logic(char **line, char **sv, char **buf, int fd)
 {
 	int	rr;
@@ -73,26 +103,13 @@ static int	logic(char **line, char **sv, char **buf, int fd)
 			return (1);
 		if (rr == 0)
 			return (2);
-		rlp = ft_strchr(*buf, rr, '\n');
+		rlp = handle_line_break(buf, line, sv, rr);
 		if (rlp != -1)
-		{
-			*sv = ft_strdup(*buf + rlp + 1);
-			if (!*sv)
-				return (1);
-			*line = ft_strjoin(*line, *buf, rlp);
-			return (0);
-		}
-		else
-		{
-			*line = ft_strjoin(*line, *buf, ft_strlen(*buf));
-			ft_bzero(*buf, BUFFER_SIZE + 1);
-		}
+			return (rlp);
 	}
 }
 
 /*
-*rlp = return line position
-*
 */
 char	*get_next_line(int fd)
 {

@@ -82,7 +82,8 @@ char	*ft_strjoin(char *s1, char *s2, int max)
 	while (s2 && s2[j] && j <= max)
 		str[i++] = s2[j++];
 	str[i] = '\0';
-	free(s1);
+	if (s1)
+		free(s1);
 	return (str);
 }
 
@@ -97,32 +98,4 @@ void	ft_bzero(void *s, size_t n)
 		s++;
 		incr++;
 	}
-}
-
-void	*ft_memmove(void *dest, const void *src, size_t n)
-{
-	size_t	incr;
-	char	*dest2;
-
-	if (!dest && !src)
-		return (dest);
-	incr = 0;
-	dest2 = dest;
-	if (dest2 < (char *)src)
-	{
-		while (incr < n)
-		{
-			*(char *)dest++ = *(char *)src++;
-			incr++;
-		}
-	}
-	else
-	{
-		while (incr < n)
-		{
-			*(char *)(dest + n - 1) = *(char *)(src + n - 1);
-			n--;
-		}
-	}
-	return (dest2);
 }

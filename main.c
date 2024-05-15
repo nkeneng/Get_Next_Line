@@ -18,13 +18,11 @@ int	main(void)
 {
 	char *line;
 	printf("buffer size  is %d\n", BUFFER_SIZE);
-	int fd3 = open("files/multiple_line_no_nl", O_RDONLY);
+	int fd3 = open("files/nl", O_RDONLY);
 	line =  get_next_line(fd3);
 	printf("%s", line);
-	line =  get_next_line(fd3);
-	printf("%s", line);
-	close(fd3);
 	free(line);
+	close(fd3);
 	return (0);
 }
 

@@ -79,3 +79,27 @@ void	ft_bzero(void *s, size_t n)
 		incr++;
 	}
 }
+
+t_list	*handle_list(t_list **lst, void *content, int action)
+{
+	t_list	*element;
+	t_list	*last;
+
+	if (action == 1)
+	{
+		element = malloc(sizeof(t_list));
+		if (!element)
+			return (NULL);
+		element->content = content;
+		element->next = NULL;
+		while (last->next)
+			last = last->next;
+		last-
+		return (element);
+	}
+	else if (action == 2)
+	{
+		free(lst->content);
+		free(lst);
+	}
+}

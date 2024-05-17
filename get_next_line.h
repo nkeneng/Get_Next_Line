@@ -22,6 +22,12 @@
 # include <stdio.h>
 # include <unistd.h>
 
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
+
 char	*get_next_line(int fd);
 char	*get_next_line2(int fd);
 char	*ft_strjoin(char *s1, char *s2, int max);

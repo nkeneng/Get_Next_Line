@@ -67,9 +67,7 @@ int	handle_line_break(char **buf, char **line, char **sv, int rr)
 	rlp = ft_strchr(*buf, rr, '\n');
 	if (rlp != -1)
 	{
-		*sv = ft_strdup(*buf + rlp + 1);
-		if (!*sv)
-			return (1);
+		*sv = ft_strjoin(*sv, *buf + rlp + 1, ft_strlen(*buf + rlp + 1));
 		*line = ft_strjoin(*line, *buf, rlp);
 		return (0);
 	}

@@ -17,11 +17,20 @@
 int	main(void)
 {
 	char *line;
+	char *line2;
+	char *line3;
 	printf("buffer size  is %d\n", BUFFER_SIZE);
-	int fd3 = open("files/nl", O_RDONLY);
+	int fd3 = open("files/multiple_line_no_nl", O_RDONLY);
 	line =  get_next_line(fd3);
 	printf("%s", line);
 	free(line);
+	line2 =  get_next_line(fd3);
+	printf("%s", line2);
+	free(line2);
+	line3 =  get_next_line(fd3);
+	printf("%s", line3);
+	free(line3);
+
 	close(fd3);
 	return (0);
 }

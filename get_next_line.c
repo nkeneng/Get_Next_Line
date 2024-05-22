@@ -67,15 +67,20 @@ int	handle_line_break(char **buf, char **line, char **sv, int rr)
 	rlp = ft_strchr(*buf, rr, '\n');
 	if (rlp != -1)
 	{
-		*sv = ft_strjoin(*sv, *buf + rlp + 1, ft_strlen(*buf + rlp + 1));
-		*line = ft_strjoin(*line, *buf, rlp);
+		if (*(*buf + rlp + 1) != '\0')
+			*sv = ft_strjoin(*sv, *buf + rlp + 1, ft_strlen(*buf + rlp + 1));
+		if (**buf != '\0')
+			*line = ft_strjoin(*line, *buf, rlp);
 		return (0);
 	}
 	else
 	{
-		*line = ft_strjoin(*line, *buf, ft_strlen(*buf));
-		if (!*line)
-			return (1);
+		if (**buf != '\0')
+		{
+			*line = ft_strjoin(*line, *buf, ft_strlen(*buf));
+			if (!*line)
+				return (1);
+		}
 		ft_bzero(*buf, BUFFER_SIZE + 1);
 		return (-1);
 	}
@@ -92,7 +97,8 @@ static int	logic(char **line, char **sv, char **buf, int fd)
 			return (0);
 		if (*sv)
 		{
-			*line = ft_strjoin(*line, *sv, ft_strlen(*sv));
+			if (**sv != '\0')
+				*line = ft_strjoin(*line, *sv, ft_strlen(*sv));
 			free(*sv);
 			*sv = NULL;
 		}

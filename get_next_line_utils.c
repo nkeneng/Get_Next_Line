@@ -80,6 +80,7 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
+/*
 t_list	*handle_list(t_list **lst, void *content, int action)
 {
 	t_list	*element;
@@ -103,3 +104,4 @@ t_list	*handle_list(t_list **lst, void *content, int action)
 		free(lst);
 	}
 }
+*/

@@ -22,7 +22,7 @@ static int	parse_static(char **sv, char **line)
 	incr = 0;
 	if (rlp != -1)
 	{
-		*line = ft_strjoin(*line, *sv, rlp);
+		*line = ft_strjoin(*line, *sv, rlp + 1);
 		while (incr < (int)ft_strlen(*sv) - rlp)
 		{
 			(*sv)[incr] = (*sv)[incr + rlp + 1];
@@ -37,7 +37,7 @@ static int	parse_static(char **sv, char **line)
  *
  * rn  = return null ?
  */
-static char	*free_return(char *line, char *buf, char *sv, int rn)
+static char	*free_return(char *line, char *buf, char **sv, int rn)
 {
 	if (buf)
 		free(buf);
@@ -45,17 +45,17 @@ static char	*free_return(char *line, char *buf, char *sv, int rn)
 	{
 		if (line)
 			free(line);
-		if (sv)
+		if (*sv)
 		{
-			free(sv);
-			sv = NULL;
+			free(*sv);
+			*sv = NULL;
 		}
 		return (NULL);
 	}
-	else if (rn == 2 && sv)
+	else if (rn == 2 && *sv)
 	{
-		free(sv);
-		sv = NULL;
+		free(*sv);
+		*sv = NULL;
 	}
 	return (line);
 }
@@ -70,7 +70,7 @@ int	handle_line_break(char **buf, char **line, char **sv, int rr)
 		if (*(*buf + rlp + 1) != '\0')
 			*sv = ft_strjoin(*sv, *buf + rlp + 1, ft_strlen(*buf + rlp + 1));
 		if (**buf != '\0')
-			*line = ft_strjoin(*line, *buf, rlp);
+			*line = ft_strjoin(*line, *buf, rlp + 1);
 		return (0);
 	}
 	else
@@ -125,8 +125,8 @@ char	*get_next_line(int fd)
 	buf = (char *)malloc(BUFFER_SIZE + 1);
 	line = NULL;
 	if (!buf || fd < 0)
-		return (free_return(line, buf, sv, 1));
+		return (free_return(line, buf, &sv, 1));
 	ft_bzero(buf, BUFFER_SIZE + 1);
 	res = logic(&line, &sv, &buf, fd);
-	return (free_return(line, buf, sv, res));
+	return (free_return(line, buf, &sv, res));
 }

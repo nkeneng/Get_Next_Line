@@ -47,7 +47,7 @@ char	*ft_strjoin(char *s1, char *s2, int max)
 	int		i;
 	int		j;
 
-	str = malloc(sizeof(char) * (ft_strlen(s1) + max + 2));
+	str = malloc(sizeof(char) * (ft_strlen(s1) + max + 1));
 	if (!str)
 		return (0);
 	i = 0;
@@ -57,7 +57,7 @@ char	*ft_strjoin(char *s1, char *s2, int max)
 		i++;
 	}
 	j = 0;
-	while (s2 && s2[j] && j <= max)
+	while (s2 && s2[j] && j < max)
 		str[i++] = s2[j++];
 	str[i] = '\0';
 	if (s1)
@@ -77,29 +77,3 @@ void	ft_bzero(void *s, size_t n)
 		incr++;
 	}
 }
-
-/*
-t_list	*handle_list(t_list **lst, void *content, int action)
-{
-	t_list	*element;
-	t_list	*last;
-
-	if (action == 1)
-	{
-		element = malloc(sizeof(t_list));
-		if (!element)
-			return (NULL);
-		element->content = content;
-		element->next = NULL;
-		while (last->next)
-			last = last->next;
-		last-
-		return (element);
-	}
-	else if (action == 2)
-	{
-		free(lst->content);
-		free(lst);
-	}
-}
-*/

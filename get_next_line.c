@@ -37,7 +37,7 @@ static int	parse_static(char **sv, char **line)
  *
  * rn  = return null ?
  */
-static char	*free_return(char *line, char *buf, char *sv, int rn)
+static char	*free_return(char *line, char *buf, char **sv, int rn)
 {
 	if (buf)
 		free(buf);
@@ -45,17 +45,17 @@ static char	*free_return(char *line, char *buf, char *sv, int rn)
 	{
 		if (line)
 			free(line);
-		if (sv)
+		if (*sv)
 		{
-			free(sv);
-			sv = NULL;
+			free(*sv);
+			*sv = NULL;
 		}
 		return (NULL);
 	}
-	else if (rn == 2 && sv)
+	else if (rn == 2 && *sv)
 	{
-		free(sv);
-		sv = NULL;
+		free(*sv);
+		*sv = NULL;
 	}
 	return (line);
 }
@@ -107,7 +107,6 @@ static int	logic(char **line, char **sv, char **buf, int fd)
 			return (1);
 		if (rr == 0)
 			return (2);
-		//(*buf)[rr] = '\0';
 		rlp = handle_line_break(buf, line, sv, rr);
 		if (rlp != -1)
 			return (rlp);
@@ -126,8 +125,8 @@ char	*get_next_line(int fd)
 	buf = (char *)malloc(BUFFER_SIZE + 1);
 	line = NULL;
 	if (!buf || fd < 0)
-		return (free_return(line, buf, sv, 1));
+		return (free_return(line, buf, &sv, 1));
 	ft_bzero(buf, BUFFER_SIZE + 1);
 	res = logic(&line, &sv, &buf, fd);
-	return (free_return(line, buf, sv, res));
+	return (free_return(line, buf, &sv, res));
 }

@@ -22,7 +22,7 @@ static int	parse_static(char **sv, char **line)
 	incr = 0;
 	if (rlp != -1)
 	{
-		*line = ft_strjoin(*line, *sv, rlp);
+		*line = ft_strjoin(*line, *sv, rlp + 1);
 		while (incr < (int)ft_strlen(*sv) - rlp)
 		{
 			(*sv)[incr] = (*sv)[incr + rlp + 1];
@@ -70,7 +70,7 @@ int	handle_line_break(char **buf, char **line, char **sv, int rr)
 		if (*(*buf + rlp + 1) != '\0')
 			*sv = ft_strjoin(*sv, *buf + rlp + 1, ft_strlen(*buf + rlp + 1));
 		if (**buf != '\0')
-			*line = ft_strjoin(*line, *buf, rlp);
+			*line = ft_strjoin(*line, *buf, rlp + 1);
 		return (0);
 	}
 	else
@@ -107,6 +107,7 @@ static int	logic(char **line, char **sv, char **buf, int fd)
 			return (1);
 		if (rr == 0)
 			return (2);
+		//(*buf)[rr] = '\0';
 		rlp = handle_line_break(buf, line, sv, rr);
 		if (rlp != -1)
 			return (rlp);

@@ -9,7 +9,7 @@ SRCS = *.c
 all: $(NAME)
 
 $(NAME):: clean
-	${CC} ${CFLAGS} ${SRCS} -o ${NAME} -D BUFFER_SIZE=42 && ./${NAME} | cat -e
+	${CC} ${CFLAGS} ${SRCS} -o ${NAME} -D BUFFER_SIZE=41 && ./${NAME} | cat -e
 
 clean:
 	-rm *.out

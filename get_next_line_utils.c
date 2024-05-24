@@ -47,7 +47,7 @@ char	*ft_strjoin(char *s1, char *s2, int max)
 	int		i;
 	int		j;
 
-	str = malloc(sizeof(char) * (ft_strlen(s1) + max + 2));
+	str = malloc(sizeof(char) * (ft_strlen(s1) + max + 1));
 	if (!str)
 		return (0);
 	i = 0;
@@ -57,7 +57,7 @@ char	*ft_strjoin(char *s1, char *s2, int max)
 		i++;
 	}
 	j = 0;
-	while (s2 && s2[j] && j <= max)
+	while (s2 && s2[j] && j < max)
 		str[i++] = s2[j++];
 	str[i] = '\0';
 	if (s1)

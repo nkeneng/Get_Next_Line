@@ -16,13 +16,19 @@
 
 int	main(void)
 {
-	char *line;
+	char	*line;
+	int		i;
+
 	printf("buffer size  is %d\n", BUFFER_SIZE);
-	int fd = open("files/1char.txt", O_RDONLY);
-	line =  get_next_line(fd);
-	printf("%s", line);
-	free(line);
+	i = 0;
+	int fd = open("files/multiple_nlx5", O_RDONLY);
+	while (i < 7)
+	{
+		line =  get_next_line(fd);
+		printf("%s", line);
+		free(line);
+		i++;
+	}
 	close(fd);
 	return (0);
 }
-

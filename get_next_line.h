@@ -23,10 +23,9 @@
 # include <unistd.h>
 
 char	*get_next_line(int fd);
-char	*get_next_line2(int fd);
-char	*ft_strjoin(char *s1, char *s2, int max);
-int		ft_strchr(char *str, int len, int c);
-size_t	ft_strlen(char const *str);
-void	ft_bzero(void *s, size_t n);
+char	*gnl_strjoin(char *s1, char *s2, int max);
+int		gnl_strchr(char *str, int len, int c);
+size_t	gnl_strlen(char const *str);
+void	gnl_bzero(void *s, size_t n);
 
 #endif

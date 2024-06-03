@@ -13,17 +13,17 @@
 #include "get_next_line.h"
 #include <stdlib.h>
 
-static int	parse_static(char **sv, char **line)
+int	parse_static(char **sv, char **line)
 {
 	int	rlp;
 	int	incr;
 
-	rlp = ft_strchr(*sv, ft_strlen(*sv), '\n');
+	rlp = gnl_strchr(*sv, gnl_strlen(*sv), '\n');
 	incr = 0;
 	if (rlp != -1)
 	{
-		*line = ft_strjoin(*line, *sv, rlp + 1);
-		while (incr < (int)ft_strlen(*sv) - rlp)
+		*line = gnl_strjoin(*line, *sv, rlp + 1);
+		while (incr < (int)gnl_strlen(*sv) - rlp)
 		{
 			(*sv)[incr] = (*sv)[incr + rlp + 1];
 			incr++;
@@ -64,29 +64,29 @@ int	handle_line_break(char **buf, char **line, char **sv, int rr)
 {
 	int	rlp;
 
-	rlp = ft_strchr(*buf, rr, '\n');
+	rlp = gnl_strchr(*buf, rr, '\n');
 	if (rlp != -1)
 	{
 		if (*(*buf + rlp + 1) != '\0')
-			*sv = ft_strjoin(*sv, *buf + rlp + 1, ft_strlen(*buf + rlp + 1));
+			*sv = gnl_strjoin(*sv, *buf + rlp + 1, gnl_strlen(*buf + rlp + 1));
 		if (**buf != '\0')
-			*line = ft_strjoin(*line, *buf, rlp + 1);
+			*line = gnl_strjoin(*line, *buf, rlp + 1);
 		return (0);
 	}
 	else
 	{
 		if (**buf != '\0')
 		{
-			*line = ft_strjoin(*line, *buf, ft_strlen(*buf));
+			*line = gnl_strjoin(*line, *buf, gnl_strlen(*buf));
 			if (!*line)
 				return (1);
 		}
-		ft_bzero(*buf, BUFFER_SIZE + 1);
+		gnl_bzero(*buf, BUFFER_SIZE + 1);
 		return (-1);
 	}
 }
 
-static int	logic(char **line, char **sv, char **buf, int fd)
+int	logic(char **line, char **sv, char **buf, int fd)
 {
 	int	rr;
 	int	rlp;
@@ -98,7 +98,7 @@ static int	logic(char **line, char **sv, char **buf, int fd)
 		if (*sv)
 		{
 			if (**sv != '\0')
-				*line = ft_strjoin(*line, *sv, ft_strlen(*sv));
+				*line = gnl_strjoin(*line, *sv, gnl_strlen(*sv));
 			free(*sv);
 			*sv = NULL;
 		}
@@ -126,7 +126,7 @@ char	*get_next_line(int fd)
 	line = NULL;
 	if (!buf || fd < 0)
 		return (free_return(line, buf, &sv, 1));
-	ft_bzero(buf, BUFFER_SIZE + 1);
+	gnl_bzero(buf, BUFFER_SIZE + 1);
 	res = logic(&line, &sv, &buf, fd);
 	return (free_return(line, buf, &sv, res));
 }
